@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int findGCD(int a, int b){
+        if(b==0){
+            return a;
+        }
+        return findGCD(b, a%b);
+    }
+    ListNode* insertGCDNodes(ListNode* head){
+        ListNode* current = head;
+        while(current!=nullptr && current->next!=nullptr){
+            int gcdValue = findGCD(current->val, current->next->val);
+            current->next = new ListNode(gcdValue, current->next);
+            current = current->next->next;
+        }
+        return head;
+    }
+    ListNode* insertGreatestCommonDivisors(ListNode* head) {
+        if(head == nullptr || head->next == nullptr){
+            return head;
+        }
+        return insertGCDNodes(head);
+    }
+};
